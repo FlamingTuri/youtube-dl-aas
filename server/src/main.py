@@ -1,10 +1,10 @@
 import youtube_dl
 from pathlib import Path
-from flask import Flask
-from flask import request
-from flask import abort
+from flask import Flask, request, abort, jsonify
+from marshmallow import ValidationError
 
 from src.youtube_dl_progress_hook import YoutubeDlProgressHook
+from src.download_entry_schema import DownloadEntrySchema
 
 progress_hook = YoutubeDlProgressHook()
 
@@ -30,13 +30,13 @@ def index():
 def download():
     if request.is_json:
         body = request.get_json()
-        url = body.get('url')
-        if url is None:
-            abort(bad_request_code, '\'url\' key not defined')
-
-        ydl_opts = body.get('options', default_ydl_opts)
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
-            return progress_hook.get_download_file_location()
+        schema = DownloadEntrySchema()
+        try:
+            result = schema.load(body)
+            with youtube_dl.YoutubeDL(default_ydl_opts) as ydl:
+                ydl.download(result.urls)
+                return progress_hook.get_download_file_location()
+        except ValidationError as err:
+            return jsonify(err.messages), 400
     else:
         abort(bad_request_code, 'body must be in json format')
