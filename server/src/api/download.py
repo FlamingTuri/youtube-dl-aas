@@ -26,21 +26,18 @@ download = api.model('Download', {
 class Download(Resource):
     '''TODO'''
 
-    @ns.doc('dowloads video on filesystem')
+    @ns.doc('downloads videos on filesystem', responses={
+        200: 'Success',
+        400: 'Validation Error'
+    })
     @ns.expect(download)
-    @ns.marshal_with(download, code=200)
+    #@ns.marshal_with(download, code=200)
     def post(self):
-        print(api.payload)
-        return api.payload
-        """if request.is_json:
-            body = request.get_json()
-            schema = DownloadEntrySchema()
-            try:
-                result = schema.load(body)
-                with youtube_dl.YoutubeDL(default_ydl_opts) as ydl:
-                    ydl.download(result.urls)
-                    return progress_hook.get_download_file_location()
-            except ValidationError as err:
-                return jsonify(err.messages), 400
-        else:
-            abort(bad_request_code, 'body must be in json format')"""
+        body = api.payload
+        print(body)
+        print(type(body))
+        urls = body.get('urls')
+        print(urls)
+        with youtube_dl.YoutubeDL(default_ydl_opts) as ydl:
+            ydl.download(urls)
+            return progress_hook.get_downloaded_files_locations()
