@@ -1,5 +1,6 @@
 class YoutubeDlProgressHook:
 
+    download_locations = []
     download_prefix = '[download] Destination: '
 
     def progress_hook(self, d):
@@ -8,6 +9,7 @@ class YoutubeDlProgressHook:
         if status == 'finished':
             print(d['filename'])
             self.download_file_location = d['filename']
+            self.download_locations.append(d['filename'])
 
-    def get_download_file_location(self):
-        return self.download_file_location
+    def get_downloaded_files_locations(self):
+        return self.download_locations
