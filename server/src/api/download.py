@@ -1,9 +1,8 @@
 import youtube_dl
-from pathlib import Path
 from src.youtube_dl_progress_hook import YoutubeDlProgressHook
 from src.restx_config import api
 from flask_restx import Resource, fields
-
+from src.config import Config
 
 ns = api.namespace('youtube-dl', description='Download operations')
 
@@ -18,12 +17,12 @@ class Download(Resource):
 
     progress_hook = YoutubeDlProgressHook()
 
-    default_download_folder = Path.home().joinpath('Downloads', 'youtube-dl')
+    config = Config()
     default_output_template = '%(title)s.%(ext)s'
 
     default_ydl_opts = {
         'progress_hooks': [progress_hook.progress_hook],
-        'outtmpl': str(default_download_folder.joinpath(default_output_template))
+        'outtmpl': config.get_as_path_in_download_folder(default_output_template)
     }
 
     @ns.doc('downloads videos on filesystem', responses={
