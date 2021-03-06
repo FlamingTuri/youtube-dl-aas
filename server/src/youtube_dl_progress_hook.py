@@ -11,5 +11,5 @@ class YoutubeDlProgressHook:
             self.download_file_location = d['filename']
             self.download_locations.append(d['filename'])
 
-    def get_downloaded_files_locations(self):
+    def get_downloaded_files_locations(self) -> list:
         return self.download_locations
