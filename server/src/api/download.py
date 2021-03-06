@@ -33,7 +33,7 @@ class Download(Resource):
     @ns.response(200, 'Success', fields.List(fields.String(example="/path/to/downloaded/file")))
     def post(self):
         body = api.payload
-        urls = set(body.get('urls')
+        urls = set(body.get('urls'))
 
         ydl_opts = body.get('ydlOpts', None)
         if ydl_opts is None:
