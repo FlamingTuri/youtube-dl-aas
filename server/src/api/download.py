@@ -7,16 +7,6 @@ from flask_restx import Resource, fields
 
 ns = api.namespace('youtube-dl', description='Download operations')
 
-progress_hook = YoutubeDlProgressHook()
-
-bad_request_code = 400
-default_download_folder = Path.home().joinpath('Downloads', 'youtube-dl')
-default_output_template = '%(title)s.%(ext)s'
-default_ydl_opts = {
-    'progress_hooks': [progress_hook.progress_hook],
-    'outtmpl': str(default_download_folder.joinpath(default_output_template))
-}
-
 download = api.model('Download', {
     'urls': fields.List(fields.String(), required = True),
     'ydlOpts': fields.Wildcard(fields.String(), required = False)
@@ -26,18 +16,32 @@ download = api.model('Download', {
 class Download(Resource):
     '''TODO'''
 
+    progress_hook = YoutubeDlProgressHook()
+
+    default_download_folder = Path.home().joinpath('Downloads', 'youtube-dl')
+    default_output_template = '%(title)s.%(ext)s'
+
+    default_ydl_opts = {
+        'progress_hooks': [progress_hook.progress_hook],
+        'outtmpl': str(default_download_folder.joinpath(default_output_template))
+    }
+
     @ns.doc('downloads videos on filesystem', responses={
         200: 'Success',
         400: 'Validation Error'
     })
     @ns.expect(download)
-    #@ns.marshal_with(download, code=200)
+    @ns.response(200, 'Success', fields.List(fields.String(example="/path/to/downloaded/file")))
     def post(self):
         body = api.payload
-        print(body)
-        print(type(body))
         urls = body.get('urls')
-        print(urls)
-        with youtube_dl.YoutubeDL(default_ydl_opts) as ydl:
+
+        ydl_opts = body.get('ydlOpts', None)
+        if ydl_opts is None:
+            ydl_opts = self.default_ydl_opts
+        else:
+            ydl_opts.update(self.default_ydl_opts)
+
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download(urls)
-            return progress_hook.get_downloaded_files_locations()
+            return self.progress_hook.get_downloaded_files_locations()
