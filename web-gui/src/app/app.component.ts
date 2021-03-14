@@ -10,4 +10,8 @@ export class AppComponent {
     'url1',
     'url2'
   ];
+
+  download() {
+    
+  }
 }
