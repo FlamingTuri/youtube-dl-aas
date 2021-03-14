@@ -11,6 +11,6 @@ export class DownloadService {
   constructor(private httpClient: HttpClient) { }
 
   download(name: string) {
-    return this.httpClient.get(this.base + '/file' + `/${name}`).toPromise();
+    return this.httpClient.get(this.base + '/file' + `/${name}`, {responseType: 'blob'}).toPromise();
   }
 }
