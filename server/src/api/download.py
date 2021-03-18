@@ -1,8 +1,6 @@
-import youtube_dl
-from src.youtube_dl_progress_hook import YoutubeDlProgressHook
 from src.restx_config import api
+from src.service.downloader_service import DownloaderService
 from flask_restx import Resource, fields
-from src.config import Config
 
 ns = api.namespace('youtube-dl', description='Download operations')
 
@@ -15,15 +13,7 @@ download = api.model('Download', {
 class Download(Resource):
     '''TODO'''
 
-    progress_hook = YoutubeDlProgressHook()
-
-    config = Config()
-    default_output_template = '%(title)s.%(ext)s'
-
-    default_ydl_opts = {
-        'progress_hooks': [progress_hook.progress_hook],
-        'outtmpl': config.get_as_path_in_download_folder(default_output_template)
-    }
+    __downloader_service = DownloaderService()
 
     @ns.doc('downloads videos on filesystem', responses={
         200: 'Success',
@@ -34,13 +24,6 @@ class Download(Resource):
     def post(self):
         body = api.payload
         urls = set(body.get('urls'))
-
         ydl_opts = body.get('ydlOpts', None)
-        if ydl_opts is None:
-            ydl_opts = self.default_ydl_opts
-        else:
-            ydl_opts.update(self.default_ydl_opts)
 
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            ydl.download(urls)
-            return self.progress_hook.get_downloaded_files_locations()
+        return self.__downloader_service.download(urls, ydl_opts)
