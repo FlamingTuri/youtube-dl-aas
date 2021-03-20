@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { UrlBuilder } from 'http-url-builder';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DownloadService {
 
-  readonly base = 'http://0.0.0.0:5000/youtube-dl';
+  readonly base = new UrlBuilder('http://0.0.0.0:5000/youtube-dl');
 
   constructor(private httpClient: HttpClient) { }
 
   getFile(name: string): Promise<HttpResponse<Blob>> {
-    return this.httpClient.get(this.base + '/file' + `/${name}`,
-      { responseType: 'blob', observe: 'response' }).toPromise();
+    const url = this.base.addPath('file')
+      .addPath(name)
+      .build()
+    return this.httpClient.get(url, { responseType: 'blob', observe: 'response' }).toPromise();
   }
 
   getFiles(names: string[]): Promise<HttpResponse<Blob>> {
     if (names.length === 1) {
       return this.getFile(names[0]);
     } else {
-      return this.httpClient.post(this.base + '/files', names,
-        { responseType: 'blob', observe: 'response' }).toPromise();
+      const url = this.base.addPath('files').build()
+      return this.httpClient.post(url, names, { responseType: 'blob', observe: 'response' }).toPromise();
     }
   }
 
