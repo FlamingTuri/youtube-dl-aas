@@ -4,6 +4,7 @@ from src.config import Config
 from io import BytesIO
 import zipfile
 from flask import safe_join
+import os
 
 class DownloaderService:
 
@@ -27,7 +28,7 @@ class DownloaderService:
             ydl.download(urls)
             return self.progress_hook.get_downloaded_files_locations()
 
-    def zip_files(self, files: list):
+    def zip_files(self, files: list) -> BytesIO:
         download_folder = self.config.get_download_folder()
         
         in_memory_zip = BytesIO()
@@ -38,3 +39,12 @@ class DownloaderService:
         in_memory_zip.seek(0)
 
         return in_memory_zip
+
+    def load_file(self, file: str) -> BytesIO:
+        download_folder = self.config.get_download_folder()
+        with open(safe_join(download_folder, file), 'rb') as fh:
+            return BytesIO(fh.read())
+
+    def remove_file(self, file: str) -> None:
+        download_folder = self.config.get_download_folder()
+        os.remove(safe_join(download_folder, name))
