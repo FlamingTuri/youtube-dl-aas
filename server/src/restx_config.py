@@ -7,6 +7,7 @@ log = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.config['RESTX_VALIDATE'] = True
+app.config['CORS_EXPOSE_HEADERS'] = 'Content-Disposition'
 CORS(app)
 
 api = Api(version='1.0', title='Youtube dl as a service API')
