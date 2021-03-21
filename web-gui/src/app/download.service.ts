@@ -27,6 +27,19 @@ export class DownloadService {
     }
   }
 
+  download(urls: string[]): Promise<HttpResponse<Blob>> {
+    const url = this.base.addPath('download-and-send').build()
+    const body = {
+      'urls': urls,
+      'temporary': true
+    }
+    return this.httpClient.post(url, JSON.stringify(body), {
+      headers : new HttpHeaders({ 'Content-Type': 'application/json' }),
+      responseType: 'blob',
+      observe: 'response'
+    }).toPromise();
+  }
+
   getFileNameFromHeaders(headers: HttpHeaders): string {
     const contenDisposition = headers.get('content-disposition');
     if (contenDisposition === null) {

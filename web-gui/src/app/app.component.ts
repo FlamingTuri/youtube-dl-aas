@@ -17,6 +17,14 @@ export class AppComponent {
   constructor(private downloadService: DownloadService) { }
 
   download() {
+    if (this.urls.length >= 1) {
+      this.downloadService.download(this.urls)
+        .then(response => this.promptSaveData(response))
+        .catch(e => console.error(e));
+    }
+  }
+
+  getFiles() {
     let response: Promise<HttpResponse<Blob>>;
     if (this.urls.length === 1) {
       const url = this.urls[0];
@@ -24,7 +32,8 @@ export class AppComponent {
     } else {
       response = this.downloadService.getFiles(this.urls)
     }
-    response.then(response => this.promptSaveData(response));
+    response.then(response => this.promptSaveData(response))
+      .catch(e => console.error(e));
   }
 
   promptSaveData(response: HttpResponse<Blob>) {
@@ -32,6 +41,8 @@ export class AppComponent {
     const data = response.body;
     if (data !== null) {
       saveAs(data, fileName)
+    } else {
+      throw new Error('file content can not be null!');
     }
   }
 }
