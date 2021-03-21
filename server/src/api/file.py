@@ -22,9 +22,9 @@ class File(Resource):
                 downloader_service.remove_file(name)
 
             return send_file(
-                file,
+                file.content,
                 as_attachment=True,
-                attachment_filename=name
+                attachment_filename=file.name
             )
         except FileNotFoundError:
             return abort(404)
@@ -41,13 +41,11 @@ class Files(Resource):
 
         requested_files = set(body)
 
-        zipfile_name = 'ZipFile.zip'
-
         zip_file = downloader_service.zip_files(requested_files)
 
         return send_file(
-            zip_file,
+            zip_file.content,
             mimetype='application/zip',
             as_attachment=True,
-            attachment_filename=zipfile_name
+            attachment_filename=zip_file.name
         )
