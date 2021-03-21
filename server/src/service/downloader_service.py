@@ -5,7 +5,7 @@ from io import BytesIO
 import zipfile
 from flask import safe_join
 import os
-from src.models.file import File
+from src.models.file_info import FileInfo
 import shutil
 
 class DownloaderService:
@@ -31,7 +31,7 @@ class DownloaderService:
             # it is not possible and the download location is returned instead
             return download_folder
 
-    def zip_files(self, files: list, download_folder: str = config.get_download_folder()) -> File:
+    def zip_files(self, files: list, download_folder: str = config.get_download_folder()) -> FileInfo:
         in_memory_zip = BytesIO()
         with zipfile.ZipFile(in_memory_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
             for file in files:
@@ -40,16 +40,16 @@ class DownloaderService:
         in_memory_zip.seek(0)
 
         now = self.config.get_current_time_as_string()
-        return File(f'ytdl-download-{now}.zip', in_memory_zip)
+        return File(f'ytdl-download-{now}.zip', in_memory_zip, 'application/zip')
 
-    def load_file(self, file: str, download_folder: str = config.get_download_folder()) -> File:
+    def load_file(self, file: str, download_folder: str = config.get_download_folder()) -> FileInfo:
         with open(safe_join(download_folder, file), 'rb') as fh:
             return File(file, BytesIO(fh.read()))
 
     def remove_file(self, file: str, download_folder: str = config.get_download_folder()) -> None:
         os.remove(safe_join(download_folder, name))
 
-    def load_files_in_directory(self, directory: str = config.get_download_folder()) -> File:
+    def load_files_in_directory(self, directory: str = config.get_download_folder()) -> FileInfo:
         files = os.listdir(directory)
         files_number = len(files)
         if files_number == 1:
