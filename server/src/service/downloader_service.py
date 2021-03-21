@@ -29,9 +29,7 @@ class DownloaderService:
             # it is not possible and the download location is returned instead
             return download_folder
 
-    def zip_files(self, files: list) -> BytesIO:
-        download_folder = self.config.get_download_folder()
-        
+    def zip_files(self, files: list, download_folder: str = config.get_download_folder()) -> BytesIO:
         in_memory_zip = BytesIO()
         with zipfile.ZipFile(in_memory_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
             for file in files:
@@ -41,11 +39,19 @@ class DownloaderService:
 
         return in_memory_zip
 
-    def load_file(self, file: str) -> BytesIO:
-        download_folder = self.config.get_download_folder()
+    def load_file(self, file: str, download_folder: str = config.get_download_folder()) -> BytesIO:
         with open(safe_join(download_folder, file), 'rb') as fh:
             return BytesIO(fh.read())
 
-    def remove_file(self, file: str) -> None:
-        download_folder = self.config.get_download_folder()
+    def remove_file(self, file: str, download_folder: str = config.get_download_folder()) -> None:
         os.remove(safe_join(download_folder, name))
+
+    def load_files_in_directory(self, directory: str = config.get_download_folder()) -> BytesIO:
+        files = os.listdir(directory)
+        files_number = len(files)
+        if files_number == 1:
+            return load_file(files[0], directory)
+        elif files_number > 1:
+            return zip_files(files, directory)
+        else:
+            raise Exception(f'no files found in directory ${directory}')
