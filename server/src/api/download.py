@@ -6,7 +6,8 @@ ns = api.namespace('youtube-dl', description='Download operations')
 
 download = api.model('Download', {
     'urls': fields.List(fields.String(), required = True),
-    'ydlOpts': fields.Wildcard(fields.String(), required = False)
+    'ydlOpts': fields.Wildcard(fields.String(), required = False),
+    'temporary': fields.Boolean(default = False, required = False)
 })
 
 @ns.route('/download')
@@ -20,10 +21,11 @@ class Download(Resource):
         400: 'Validation Error'
     })
     @ns.expect(download)
-    @ns.response(200, 'Success', fields.List(fields.String(example="/path/to/downloaded/file")))
+    @ns.response(200, 'Success', fields.String(example="/path/to/download/folder"))
     def post(self):
         body = api.payload
         urls = set(body.get('urls'))
         ydl_opts = body.get('ydlOpts', None)
+        temporary = body.get('temporary', False)
 
-        return self.__downloader_service.download(urls, ydl_opts)
+        return self.__downloader_service.download(urls, ydl_opts, temporary)
