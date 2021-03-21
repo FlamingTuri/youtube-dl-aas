@@ -13,11 +13,11 @@ class DownloaderService:
     progress_hook = YoutubeDlProgressHook()
 
     config = Config()
-    default_output_template = '%(title)s.%(ext)s'
+    name_template = '%(title)s.%(ext)s'
 
     def download(self, urls: set, ydl_opts: dict = None, temporary: bool = False) -> str: 
         download_folder = self.config.get_download_folder(temporary)
-        outtmpl = self.config.get_as_path_in_download_folder(default_output_template, download_folder)
+        outtmpl = self.config.get_as_path_in_download_folder(self.name_template, download_folder)
         default_ydl_opts = { 'outtmpl': outtmpl }
         if ydl_opts is None or not ydl_opts:
             ydl_opts = default_ydl_opts
