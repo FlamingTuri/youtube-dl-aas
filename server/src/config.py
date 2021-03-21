@@ -15,7 +15,7 @@ class Config:
             return str(self.__default_download_folder)
 
     def get_as_path_in_download_folder(self, path: str, download_folder: str = __default_download_folder) -> str:
-        return str(self.__default_download_folder.joinpath(path))
+        return str(Path(download_folder).joinpath(path))
 
     def get_current_time_as_string(self) -> str:
         return datetime.now().strftime(self.__time_format)
