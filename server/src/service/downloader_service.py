@@ -6,6 +6,7 @@ import zipfile
 from flask import safe_join
 import os
 from src.models.file import File
+import shutil
 
 class DownloaderService:
 
@@ -57,3 +58,6 @@ class DownloaderService:
             return zip_files(files, directory)
         else:
             raise Exception(f'no files found in directory {directory}')
+
+    def remove_directory(self, directory) -> None:
+        shutil.rmtree(directory)

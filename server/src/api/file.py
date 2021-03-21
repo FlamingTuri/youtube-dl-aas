@@ -12,14 +12,7 @@ class File(Resource):
 
     def get(self, name):
         try:
-            parser = reqparse.RequestParser()
-            parser.add_argument('delete', type=bool, default=False)
-            query_params = parser.parse_args()
-
             file = downloader_service.load_file(name)
-
-            if query_params['delete']:
-                downloader_service.remove_file(name)
 
             return send_file(
                 file.content,
@@ -29,6 +22,12 @@ class File(Resource):
         except FileNotFoundError:
             return abort(404)
 
+    def delete(self, name):
+        try:
+            downloader_service.remove_file(name)
+            return
+        except FileNotFoundError:
+            return abort(404)
 
 @ns.route('/files')
 class Files(Resource):
