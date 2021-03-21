@@ -40,11 +40,11 @@ class DownloaderService:
         in_memory_zip.seek(0)
 
         now = self.config.get_current_time_as_string()
-        return File(f'ytdl-download-{now}.zip', in_memory_zip, 'application/zip')
+        return FileInfo(f'ytdl-download-{now}.zip', in_memory_zip, 'application/zip')
 
     def load_file(self, file: str, download_folder: str = config.get_download_folder()) -> FileInfo:
         with open(safe_join(download_folder, file), 'rb') as fh:
-            return File(file, BytesIO(fh.read()))
+            return FileInfo(file, BytesIO(fh.read()))
 
     def remove_file(self, file: str, download_folder: str = config.get_download_folder()) -> None:
         os.remove(safe_join(download_folder, name))
@@ -53,9 +53,9 @@ class DownloaderService:
         files = os.listdir(directory)
         files_number = len(files)
         if files_number == 1:
-            return load_file(files[0], directory)
+            return self.load_file(files[0], directory)
         elif files_number > 1:
-            return zip_files(files, directory)
+            return self.zip_files(files, directory)
         else:
             raise Exception(f'no files found in directory {directory}')
 
