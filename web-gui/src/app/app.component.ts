@@ -13,8 +13,17 @@ export class AppComponent {
 
   constructor(private downloadService: DownloadService) { }
 
+  isRemoveEnabled(index: number): boolean {
+    return this.urls.length !== 1;
+  }
+
   remove(index: number) {
     this.urls.splice(index, 1);
+  }
+
+  isAddEnabled(index: number): boolean {
+    const url = this.urls[index];
+    return url !== undefined && url !== null && url !== '';
   }
 
   add(index: number) {
