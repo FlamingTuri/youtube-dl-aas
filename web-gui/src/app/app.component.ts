@@ -9,12 +9,21 @@ import { DownloadService } from './download.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  urls: string[] = [
-    'url1',
-    'url2'
-  ];
+  urls: string[] = [''];
 
   constructor(private downloadService: DownloadService) { }
+
+  remove(index: number) {
+    this.urls.splice(index, 1);
+  }
+
+  add(index: number) {
+    this.urls.splice(index, 0, '');
+  }
+
+  isDownloadDisabled(): boolean {
+    return !this.urls.some(url => url !== undefined && url !== null && url !== '');
+  }
 
   download() {
     if (this.urls.length >= 1) {
