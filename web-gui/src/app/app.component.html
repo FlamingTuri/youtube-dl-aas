@@ -1,19 +1,26 @@
-<form name="userForm">
-  <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let url of urls; index as i">
-      <mat-form-field class="example-form-field">
-        <mat-label>Clearable input</mat-label>
-        <input matInput type="text" name="url-{{i}}" [(ngModel)]="urls[i]">
-        <button mat-button *ngIf="isRemoveEnabled(i)" matSuffix mat-icon-button aria-label="Clear" (click)="remove(i)">
-          <mat-icon>close</mat-icon>
-        </button>
-        <button mat-button *ngIf="isAddEnabled(i)" matSuffix mat-icon-button aria-label="Add" (click)="add(i)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </mat-form-field>
-    </mat-list-item>
-  </mat-list>
+<div class="center">
+  <form name="userForm">
+    <div>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let url of urls; index as i">
+          <mat-form-field class="example-form-field">
+            <mat-label>Link {{i+1}}</mat-label>
+            <input matInput type="text" name="url-{{i}}" [(ngModel)]="urls[i]">
+            <button mat-button *ngIf="isRemoveEnabled(i)" matSuffix mat-icon-button aria-label="Clear"
+              (click)="remove(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+            <button mat-button *ngIf="isAddEnabled(i)" matSuffix mat-icon-button aria-label="Add" (click)="add(i)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-form-field>
+        </mat-list-item>
+      </mat-list>
+    </div>
 
-  <button mat-raised-button>Options</button>
-  <button mat-raised-button color="primary" [disabled]="isDownloadDisabled()" (click)=download()>Download</button>
-</form>
+    <div>
+      <button mat-raised-button disabled=true>Options</button>
+      <button mat-raised-button color="primary" [disabled]="isDownloadDisabled()" (click)=download()>Download</button>
+    </div>
+  </form>
+</div>
