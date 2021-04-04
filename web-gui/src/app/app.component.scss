@@ -1,18 +1,27 @@
-.center-title {
+.main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: xx-large;
-  height: 30%;
+  height: calc(100%);
 }
 
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10%;
+.center-title {
+  font-size: xx-large;
+  flex-shrink: 0;
+  margin-bottom: 1%;
+}
+
+.buttons {
+  flex-shrink: 0;
 }
 
 .mat-form-field {
   width: 500px !important;
 }
+
+/*.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(100%-400px);
+}*/
