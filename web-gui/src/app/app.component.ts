@@ -10,6 +10,7 @@ import { DownloadService } from './download.service';
 })
 export class AppComponent {
   urls: string[] = [''];
+  downloadInProgress: boolean = false;
 
   constructor(private downloadService: DownloadService) { }
 
@@ -31,7 +32,7 @@ export class AppComponent {
   }
 
   isDownloadDisabled(): boolean {
-    return !this.urls.some(url => url !== undefined && url !== null && url !== '');
+    return !this.urls.some(url => url !== undefined && url !== null && url !== '') && !this.downloadInProgress;
   }
 
   download() {
@@ -43,15 +44,19 @@ export class AppComponent {
   }
 
   getFiles() {
-    let response: Promise<HttpResponse<Blob>>;
-    if (this.urls.length === 1) {
-      const url = this.urls[0];
-      response = this.downloadService.getFile(url);
-    } else {
-      response = this.downloadService.getFiles(this.urls)
+    if (this.urls.length >= 1 && !this.downloadInProgress) {
+      this.downloadInProgress = true;
+      let response: Promise<HttpResponse<Blob>>;
+      if (this.urls.length === 1) {
+        const url = this.urls[0];
+        response = this.downloadService.getFile(url);
+      } else {
+        response = this.downloadService.getFiles(this.urls)
+      }
+      response.then(response => this.promptSaveData(response))
+        .catch(e => console.error(e))
+        .finally(() => this.downloadInProgress = false);
     }
-    response.then(response => this.promptSaveData(response))
-      .catch(e => console.error(e));
   }
 
   promptSaveData(response: HttpResponse<Blob>) {
