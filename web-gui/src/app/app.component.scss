@@ -6,7 +6,7 @@
   height: calc(100%);
 }
 
-.center-title {
+.title-container {
   font-size: xx-large;
   flex-shrink: 0;
   margin-bottom: 1%;
@@ -17,7 +17,7 @@
 }
 
 @media (max-width: 600px) {
-  .input {
+  .form-container {
     width: 350px;
   }
   .mat-form-field {
@@ -25,8 +25,15 @@
   }
 }
 
-.buttons {
-  flex-shrink: 0;
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 40%;
 }
 
 /*.scroll {

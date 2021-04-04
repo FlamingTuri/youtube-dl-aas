@@ -1,8 +1,8 @@
 <div class="main">
 
-  <div class="center-title">Youtube-dl GUI</div>
+  <div class="title-container">Youtube-dl GUI</div>
 
-  <div class="center input">
+  <div class="form-container">
     <form name="urlForm">
       <div class="scroll">
         <mat-list role="list">
@@ -22,7 +22,7 @@
         </mat-list>
       </div>
 
-      <div class="buttons">
+      <div class="button-container">
         <button mat-raised-button disabled=true>Options</button>
         <button mat-raised-button color="primary" [disabled]="isDownloadDisabled()" (click)=download()>Download</button>
       </div>
