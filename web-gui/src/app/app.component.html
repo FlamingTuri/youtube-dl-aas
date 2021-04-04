@@ -4,7 +4,7 @@
     <div>
       <mat-list role="list">
         <mat-list-item role="listitem" *ngFor="let url of urls; index as i">
-          <mat-form-field>
+          <mat-form-field [style.width.px]=500>
             <mat-label>Link {{i+1}}</mat-label>
             <input matInput type="text" name="url-{{i}}" [(ngModel)]="urls[i]">
             <button mat-button *ngIf="isRemoveEnabled(i)" matSuffix mat-icon-button aria-label="Clear"
