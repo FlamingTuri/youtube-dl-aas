@@ -1,6 +1,8 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { saveAs } from 'file-saver';
+import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { DownloadService } from './download.service';
 
 @Component({
@@ -12,7 +14,7 @@ export class AppComponent {
   urls: string[] = [''];
   downloadInProgress: boolean = false;
 
-  constructor(private downloadService: DownloadService) { }
+  constructor(private downloadService: DownloadService, private dialog: MatDialog) { }
 
   isRemoveEnabled(index: number): boolean {
     return this.urls.length !== 1;
@@ -39,7 +41,11 @@ export class AppComponent {
     if (this.urls.length >= 1) {
       this.downloadService.download(this.urls)
         .then(response => this.promptSaveData(response))
-        .catch(e => console.error(e));
+        .catch(e => {
+          console.error(e);
+          this.openDialog(e);
+        })
+        .finally(() => this.downloadInProgress = false);
     }
   }
 
@@ -54,7 +60,10 @@ export class AppComponent {
         response = this.downloadService.getFiles(this.urls)
       }
       response.then(response => this.promptSaveData(response))
-        .catch(e => console.error(e))
+        .catch(e => {
+          console.error(e);
+          this.openDialog(e);
+        })
         .finally(() => this.downloadInProgress = false);
     }
   }
@@ -67,5 +76,15 @@ export class AppComponent {
     } else {
       throw new Error('file content can not be null!');
     }
+  }
+
+  openDialog(error: Error) {
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      data: error
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
