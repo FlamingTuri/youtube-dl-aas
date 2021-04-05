@@ -11,20 +11,19 @@ export class DialogService {
   constructor(private dialog: MatDialog) { }
 
   openErrorDialog(error: Error) {
+    console.error(error);
     this.dialog.open(ErrorDialogComponent, {
       data: error
     });
   }
 
-  openOptionsDialog(ydlOpts: Map<string, string | number>) {
+  openOptionsDialog(ydlOpts: Map<string, string | number>): Promise<Map<string, string | number>> {
     const dialogRef = this.dialog.open(OptionsDialogComponent, {
       width: '60%',
       height: '80%',
       data: ydlOpts
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    return dialogRef.afterClosed().toPromise();
   }
 }
