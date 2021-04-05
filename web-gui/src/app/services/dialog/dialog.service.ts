@@ -18,6 +18,8 @@ export class DialogService {
 
   openOptionsDialog(ydlOpts: Map<string, string | number>) {
     const dialogRef = this.dialog.open(OptionsDialogComponent, {
+      width: '60%',
+      height: '80%',
       data: ydlOpts
     });
 
