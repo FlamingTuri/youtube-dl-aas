@@ -12,6 +12,8 @@ import { DownloadService } from './services/download/download.service';
 })
 export class AppComponent {
   urls: string[] = [''];
+  availableFormats = ['3gp', 'aac', 'flv', 'm4a', 'mp3', 'mp4', 'ogg', 'wav', 'webm'];
+  selectedFormat: string = '';
   downloadInProgress: boolean = false;
 
   constructor(private downloadService: DownloadService, private dialog: MatDialog) { }

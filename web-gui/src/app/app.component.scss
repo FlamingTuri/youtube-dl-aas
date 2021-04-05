@@ -12,7 +12,7 @@
   margin-bottom: 1%;
 }
 
-.mat-form-field {
+.url-form-field {
   width: 500px !important;
 }
 
@@ -20,20 +20,30 @@
   .form-container {
     width: 350px;
   }
-  .mat-form-field {
+  .url-form-field {
     width: 350px !important;
   }
 }
 
 .button-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-button {
+.configuration-group {
+  display: flex;
+  justify-content: center;
+}
+
+.configuration {
   margin-left: 10px;
   margin-right: 10px;
   width: 40%;
+}
+
+#downloadButton {
+  width: 60%;
 }
 
 /*.scroll {
