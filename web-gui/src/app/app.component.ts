@@ -12,9 +12,14 @@ import { DownloadService } from './services/download/download.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  urls: string[] = [''];
+
   availableFormats = ['3gp', 'aac', 'flv', 'm4a', 'mp3', 'mp4', 'ogg', 'wav', 'webm'];
   selectedFormat: string = '';
+
+  ydlOpts: Map<string, string|number> = new Map();
+
+  urls: string[] = [''];
+
   downloadInProgress: boolean = false;
 
   constructor(private downloadService: DownloadService, private dialogService: DialogService) { }
@@ -44,10 +49,7 @@ export class AppComponent {
     if (this.urls.length >= 1) {
       this.downloadService.download(this.urls)
         .then(response => this.promptSaveData(response))
-        .catch(e => {
-          console.error(e);
-          this.dialogService.openErrorDialog(e);
-        })
+        .catch(e => this.dialogService.openErrorDialog(e))
         .finally(() => this.downloadInProgress = false);
     }
   }
@@ -63,10 +65,7 @@ export class AppComponent {
         response = this.downloadService.getFiles(this.urls)
       }
       response.then(response => this.promptSaveData(response))
-        .catch(e => {
-          console.error(e);
-          this.dialogService.openErrorDialog(e);
-        })
+        .catch(e => this.dialogService.openErrorDialog(e))
         .finally(() => this.downloadInProgress = false);
     }
   }
@@ -77,7 +76,17 @@ export class AppComponent {
     if (data !== null) {
       saveAs(data, fileName)
     } else {
-      throw new Error('file content can not be null!');
+      this.dialogService.openErrorDialog(new Error('file content can not be null!'));
     }
+  }
+
+  options() {
+    const formFormat = this.ydlOpts.get('format')
+    if (formFormat === null || formFormat === '') {
+      this.ydlOpts.set('format', this.selectedFormat);
+    }
+    this.dialogService.openOptionsDialog(this.ydlOpts)
+      .then(newYdlOpts => this.ydlOpts = newYdlOpts)
+      .catch(e => this.dialogService.openErrorDialog(e));
   }
 }
