@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './modules/material.module';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
+import { OptionsDialogComponent } from './dialogs/options-dialog/options-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    OptionsDialogComponent
   ],
   imports: [
     BrowserModule,
