@@ -81,12 +81,12 @@ export class AppComponent {
   }
 
   options() {
-    const formFormat = this.ydlOpts.get('format')
-    if (formFormat === null || formFormat === '') {
-      this.ydlOpts.set('format', this.selectedFormat);
-    }
     this.dialogService.openOptionsDialog(this.ydlOpts)
-      .then(newYdlOpts => this.ydlOpts = newYdlOpts)
+      .then(newYdlOpts => {
+        if (newYdlOpts !== null && newYdlOpts !== undefined) {
+          this.ydlOpts = newYdlOpts;
+        }
+      })
       .catch(e => this.dialogService.openErrorDialog(e));
   }
 }

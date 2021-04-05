@@ -19,6 +19,10 @@ export class OptionsDialogComponent {
     this.youtubeDlOptions = JSON.stringify(ydlOptsObj, null, 2);
   }
 
+  cancel() {
+    this.dialogRef.close(null);
+  }
+
   apply() {
     try {
       const newYdlOpts = new Map(Object.entries(JSON.parse(this.youtubeDlOptions)))
