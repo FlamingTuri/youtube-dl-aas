@@ -9,5 +9,25 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ErrorDialogComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  errorMessage: string
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.errorMessage = data.message;
+
+    const error = data.error;
+    if (error instanceof Blob) {
+      this.parseErrorMessageFromBlob(error);
+    }
+  }
+
+  parseErrorMessageFromBlob(error: Blob) {
+    error.text().then(content => {
+      const blobContentType = error.type;
+      if (blobContentType === 'application/json') {
+        this.errorMessage = JSON.parse(content).message;
+      } else {
+        console.warn(`no blob parser specified for ${blobContentType}`);
+      }
+    });
+  }
 }
