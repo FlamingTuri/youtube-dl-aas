@@ -27,11 +27,14 @@ export class DownloadService {
     }
   }
 
-  download(urls: string[]): Promise<HttpResponse<Blob>> {
+  download(urls: string[], ydlOpts: Map<string, string | number>): Promise<HttpResponse<Blob>> {
     const url = this.base.addPath('download-and-send').build()
-    const body = {
+    const body: any = {
       'urls': urls,
       'temporary': true
+    }
+    if (ydlOpts.size > 0) {
+      body.ydlOpts = Object.fromEntries(ydlOpts);
     }
     return this.httpClient.post(url, JSON.stringify(body), {
       headers : new HttpHeaders({ 'Content-Type': 'application/json' }),
