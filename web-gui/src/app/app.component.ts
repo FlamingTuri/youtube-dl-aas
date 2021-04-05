@@ -47,7 +47,8 @@ export class AppComponent {
 
   download() {
     if (this.urls.length >= 1) {
-      this.downloadService.download(this.urls)
+      this.downloadInProgress = true;
+      this.downloadService.download(this.urls, this.ydlOpts)
         .then(response => this.promptSaveData(response))
         .catch(e => this.dialogService.openErrorDialog(e))
         .finally(() => this.downloadInProgress = false);
