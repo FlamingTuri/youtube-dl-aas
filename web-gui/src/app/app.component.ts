@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { saveAs } from 'file-saver';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
-import { DownloadService } from './download.service';
+import { DownloadService } from './services/download/download.service';
 
 @Component({
   selector: 'app-root',
