@@ -1,10 +1,10 @@
 <h2 mat-dialog-title>Youtube-dl options</h2>
 
 <mat-dialog-content class="text-area-container">
-  <textarea>{{youtubeDlOptions}}</textarea>
+  <textarea [(ngModel)]="youtubeDlOptions"></textarea>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" mat-dialog>Apply</button>
+  <button mat-raised-button color="primary" mat-dialog (click)="apply()">Apply</button>
 </mat-dialog-actions>
