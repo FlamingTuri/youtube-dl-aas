@@ -14,7 +14,6 @@ api = Api(version='1.0', title='Youtube dl as a service API')
 api.init_app(app)
 
 @api.errorhandler
-def default_error_handler(e):
-    message = 'An unhandled exception occurred.'
-    log.exception(e)
-    return {'message': message}, 500
+def default_error_handler(error: Exception):
+    #log.exception(error)
+    return {'message': str(error)}, 500
