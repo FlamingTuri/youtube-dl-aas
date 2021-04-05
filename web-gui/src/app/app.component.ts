@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelectChange } from '@angular/material/select';
 import { saveAs } from 'file-saver';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { DialogService } from './services/dialog/dialog.service';
@@ -14,9 +15,8 @@ import { DownloadService } from './services/download/download.service';
 export class AppComponent {
 
   availableFormats = ['3gp', 'aac', 'flv', 'm4a', 'mp3', 'mp4', 'ogg', 'wav', 'webm'];
-  selectedFormat: string = '';
 
-  ydlOpts: Map<string, string|number> = new Map();
+  ydlOpts: Map<string, string | number> = new Map();
 
   urls: string[] = [''];
 
@@ -88,5 +88,14 @@ export class AppComponent {
         }
       })
       .catch(e => this.dialogService.openErrorDialog(e));
+  }
+
+  setSelectedFormat(matSelectChange: MatSelectChange) {
+    const selectedFormat = matSelectChange.value;
+    if (selectedFormat === undefined) {
+      this.ydlOpts.delete('format');
+    } else {
+      this.ydlOpts.set('format', selectedFormat);
+    }
   }
 }

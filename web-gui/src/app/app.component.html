@@ -29,7 +29,7 @@
 
           <mat-form-field class="configuration" appearance="fill">
             <mat-label>Format</mat-label>
-            <mat-select [(value)]="selectedFormat">
+            <mat-select (selectionChange)="setSelectedFormat($event)">
               <mat-option>Auto</mat-option>
               <mat-option *ngFor="let format of availableFormats" [value]="format">
                 {{format}}
