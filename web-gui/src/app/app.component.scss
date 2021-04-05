@@ -34,12 +34,15 @@
 .configuration-group {
   display: flex;
   justify-content: center;
+  height: 60px !important;
+  margin: 10px;
 }
 
 .configuration {
   margin-left: 10px;
   margin-right: 10px;
-  width: 40%;
+  width: 43% !important;
+  height: 100%;
 }
 
 #downloadButton {
