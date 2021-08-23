@@ -1,7 +1,7 @@
 aniso8601==9.0.1
 attrs==20.3.0
 click==8.0.1
-Flask==1.1.2
+Flask==2.0.1
 Flask-Cors==3.0.10
 flask-restx==0.3.0
 itsdangerous==1.1.0
