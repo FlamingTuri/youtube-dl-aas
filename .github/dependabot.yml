@@ -6,7 +6,12 @@ updates:
       interval: "daily"
     target-branch: "develop"
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/server"
+    schedule:
+      interval: "daily" 
+    target-branch: "develop"
+  - package-ecosystem: "npm"
+    directory: "/client"
     schedule:
       interval: "daily" 
     target-branch: "develop"

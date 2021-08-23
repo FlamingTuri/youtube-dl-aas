@@ -99,4 +99,8 @@ export class AppComponent {
       this.ydlOpts.set('format', selectedFormat);
     }
   }
+
+  showYoutubeDlDocs() {
+    this.dialogService.openYoutubeDlDocsDialog("asd");
+  }
 }

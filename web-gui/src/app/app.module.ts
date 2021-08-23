@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './modules/material.module';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { OptionsDialogComponent } from './dialogs/options-dialog/options-dialog.component';
+import { DocDialogComponent } from './dialogs/doc-dialog/doc-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorDialogComponent,
-    OptionsDialogComponent
+    OptionsDialogComponent,
+    DocDialogComponent
   ],
   imports: [
     BrowserModule,
