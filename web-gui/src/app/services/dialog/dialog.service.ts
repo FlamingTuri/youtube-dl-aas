@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DocDialogComponent } from 'src/app/dialogs/doc-dialog/doc-dialog.component';
 import { ErrorDialogComponent } from 'src/app/dialogs/error-dialog/error-dialog.component';
 import { OptionsDialogComponent } from 'src/app/dialogs/options-dialog/options-dialog.component';
 
@@ -25,5 +26,13 @@ export class DialogService {
     });
 
     return dialogRef.afterClosed().toPromise();
+  }
+
+  openYoutubeDlDocsDialog(ydlDocs: string): void {
+    this.dialog.open(DocDialogComponent, {
+      width: '60%',
+      height: '80%',
+      data: ydlDocs
+    });
   }
 }
