@@ -10,13 +10,15 @@ import { MaterialModule } from './modules/material.module';
 import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { OptionsDialogComponent } from './dialogs/options-dialog/options-dialog.component';
 import { DocDialogComponent } from './dialogs/doc-dialog/doc-dialog.component';
+import { MultipleDownloadsDialogComponent } from './dialogs/multiple-downloads-dialog/multiple-downloads-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorDialogComponent,
     OptionsDialogComponent,
-    DocDialogComponent
+    DocDialogComponent,
+    MultipleDownloadsDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,9 @@ import { OptionsDialogComponent } from 'src/app/dialogs/options-dialog/options-d
 })
 export class DialogService {
 
+  private readonly defaultWidth = '60%';
+  private readonly defaultHeight = '80%';
+
   constructor(private dialog: MatDialog) { }
 
   openErrorDialog(error: Error) {
@@ -20,8 +23,8 @@ export class DialogService {
 
   openOptionsDialog(ydlOpts: Map<string, string | number>): Promise<Map<string, string | number>> {
     const dialogRef = this.dialog.open(OptionsDialogComponent, {
-      width: '60%',
-      height: '80%',
+      width: this.defaultWidth,
+      height: this.defaultHeight,
       data: ydlOpts
     });
 
@@ -30,9 +33,19 @@ export class DialogService {
 
   openYoutubeDlDocsDialog(ydlDocs: string): void {
     this.dialog.open(DocDialogComponent, {
-      width: '60%',
-      height: '80%',
+      width: this.defaultWidth,
+      height: this.defaultHeight,
       data: ydlDocs
     });
+  }
+
+  openMultipleDownloadDialog(urls: string[]): Promise<string[]>  {
+    const dialogRef = this.dialog.open(DocDialogComponent, {
+      width: this.defaultWidth,
+      height: this.defaultHeight,
+      data: urls
+    });
+
+    return dialogRef.afterClosed().toPromise();
   }
 }
