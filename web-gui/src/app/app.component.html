@@ -5,14 +5,22 @@
 
     <div class="form-container">
       <form name="urlForm">
-        <div class="scroll">
-          <mat-form-field class="url-form-field" [style.width.px]=500>
-            <mat-label>Link</mat-label>
-            <input matInput type="text" name="url" [(ngModel)]="urls[0]">
-            <button mat-button matSuffix mat-icon-button aria-label="Add" (click)="openMultipleDownloadDialog()">
-              <mat-icon>add</mat-icon>
-            </button>
-          </mat-form-field>
+        <!-- one download -->
+        <mat-form-field *ngIf="urls.length <= 1" class="url-form-field" [style.width.px]=500>
+          <mat-label>Link</mat-label>
+          <input matInput type="text" name="url" [(ngModel)]="urls[0]">
+          <button mat-button matSuffix mat-icon-button aria-label="Add" (click)="openMultipleDownloadDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-form-field>
+        <!-- multiple downloads -->
+        <div *ngIf="urls.length > 1">
+          <mat-label class="url-form-field" [style.width.px]=500>
+            {{urls.length}} links selected
+          </mat-label>
+          <button mat-button matSuffix mat-icon-button aria-label="Add" (click)="openMultipleDownloadDialog()">
+            <mat-icon>add</mat-icon>
+          </button>
         </div>
 
         <div class="button-container">
