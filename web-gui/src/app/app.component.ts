@@ -26,8 +26,9 @@ export class AppComponent {
 
   openMultipleDownloadDialog() {
     this.dialogService.openMultipleDownloadDialog(this.urls).then(newUrls => {
-      console.log(newUrls)
-      console.log(this.urls)
+      if (newUrls) {
+        this.urls = newUrls;
+      }
     });
   }
 

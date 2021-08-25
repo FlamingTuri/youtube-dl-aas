@@ -8,12 +8,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class MultipleDownloadsDialogComponent {
 
-  urls: string[] = ['a', 'b'];
+  urls: string[] = [''];
 
   constructor(
     public dialogRef: MatDialogRef<MultipleDownloadsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) urls: string[]) {
-    //this.urls = urls;
+    this.urls = urls;
   }
 
   close() {
