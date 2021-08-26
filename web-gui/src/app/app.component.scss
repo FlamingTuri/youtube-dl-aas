@@ -50,6 +50,21 @@
   width: 60%;
 }
 
+.footer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.docs-button {
+  width: 15%;
+}
+
 /*.scroll {
   overflow-x: hidden;
   overflow-y: auto;

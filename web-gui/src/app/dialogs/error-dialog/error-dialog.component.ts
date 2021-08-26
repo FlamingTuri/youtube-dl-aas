@@ -17,6 +17,9 @@ export class ErrorDialogComponent {
     const error = data.error;
     if (error instanceof Blob) {
       this.parseErrorMessageFromBlob(error);
+    } else {
+      this.errorMessage = `unkown error instance, look console output`;
+      console.error(data);
     }
   }
 
@@ -26,7 +29,9 @@ export class ErrorDialogComponent {
       if (blobContentType === 'application/json') {
         this.errorMessage = JSON.parse(content).message;
       } else {
-        console.warn(`no blob parser specified for ${blobContentType}`);
+        this.errorMessage = `no blob parser specified for ${blobContentType}`;
+        console.warn(this.errorMessage);
+        console.error(content);
       }
     });
   }

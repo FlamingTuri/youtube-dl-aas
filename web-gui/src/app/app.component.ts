@@ -24,21 +24,12 @@ export class AppComponent {
 
   constructor(private downloadService: DownloadService, private dialogService: DialogService) { }
 
-  isRemoveEnabled(index: number): boolean {
-    return this.urls.length !== 1;
-  }
-
-  remove(index: number) {
-    this.urls.splice(index, 1);
-  }
-
-  isAddEnabled(index: number): boolean {
-    const url = this.urls[index];
-    return url !== undefined && url !== null && url !== '';
-  }
-
-  add(index: number) {
-    this.urls.splice(index, 0, '');
+  openMultipleDownloadDialog() {
+    this.dialogService.openMultipleDownloadDialog(this.urls).then(newUrls => {
+      if (newUrls) {
+        this.urls = newUrls;
+      }
+    });
   }
 
   isDownloadDisabled(): boolean {
