@@ -42,7 +42,7 @@ export class DialogService {
 
   openMultipleDownloadDialog(urls: string[]): Promise<string[]>  {
     const dialogRef = this.dialog.open(MultipleDownloadsDialogComponent, {
-      width: '80%',
+      width: this.defaultWidth,
       height: this.defaultHeight,
       data: urls
     });
