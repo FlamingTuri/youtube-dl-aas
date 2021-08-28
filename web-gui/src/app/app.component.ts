@@ -1,11 +1,10 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { saveAs } from 'file-saver';
-import { ErrorDialogComponent } from './dialogs/error-dialog/error-dialog.component';
 import { DialogService } from './services/dialog/dialog.service';
 import { DownloadService } from './services/download/download.service';
+import { VersionService } from './services/version/version.service';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +17,20 @@ export class AppComponent {
 
   ydlOpts: Map<string, string | number> = new Map();
 
+  youtubeDlVersion = 'unknown';
+
   urls: string[] = [''];
 
   downloadInProgress: boolean = false;
 
-  constructor(private downloadService: DownloadService, private dialogService: DialogService) { }
+  constructor(
+    private versionService: VersionService,
+    private downloadService: DownloadService,
+    private dialogService: DialogService) {
+    versionService.getVersion().then(version => {
+      this.youtubeDlVersion = version.youtubeDlVersion;
+    });
+  }
 
   openMultipleDownloadDialog() {
     this.dialogService.openMultipleDownloadDialog(this.urls).then(newUrls => {
