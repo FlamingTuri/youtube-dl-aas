@@ -5,7 +5,12 @@ from flask_cors import CORS
 
 log = logging.getLogger(__name__)
 
-app = Flask(__name__, static_folder='resources/static', template_folder='resources/templates')
+resources_folder = 'resources'
+app = Flask(
+    __name__,
+    static_folder=f'{resources_folder}/home',
+    template_folder=f'{resources_folder}/templates'
+)
 app.config['RESTX_VALIDATE'] = True
 app.config['CORS_EXPOSE_HEADERS'] = 'Content-Disposition'
 CORS(app)
@@ -15,6 +20,7 @@ api.init_app(app)
 
 
 @app.route('/home', methods=['GET'])
+@app.route('/home/', methods=['GET'])
 def index():
     return render_template('index.html')
 
