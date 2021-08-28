@@ -13,7 +13,8 @@ CORS(app)
 api = Api(version='1.0', title='Youtube dl as a service API')
 api.init_app(app)
 
+
 @api.errorhandler
 def default_error_handler(error: Exception):
-    #log.exception(error)
+    # log.exception(error)
     return {'message': str(error)}, 500

@@ -8,6 +8,7 @@ import os
 from src.models.file_info import FileInfo
 import shutil
 
+
 class DownloaderService:
 
     progress_hook = YoutubeDlProgressHook()
@@ -15,10 +16,10 @@ class DownloaderService:
     config = Config()
     name_template = '%(title)s.%(ext)s'
 
-    def download(self, urls: set, ydl_opts: dict = None, temporary: bool = False) -> str: 
+    def download(self, urls: set, ydl_opts: dict = None, temporary: bool = False) -> str:
         download_folder = self.config.get_download_folder(temporary)
         outtmpl = self.config.get_as_path_in_download_folder(self.name_template, download_folder)
-        default_ydl_opts = { 'outtmpl': outtmpl }
+        default_ydl_opts = {'outtmpl': outtmpl}
         if ydl_opts is None or not ydl_opts:
             ydl_opts = default_ydl_opts
         else:
@@ -26,7 +27,7 @@ class DownloaderService:
 
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download(urls)
-            # ideally the downloaded files should be returned, however, 
+            # ideally the downloaded files should be returned, however,
             # due to https://github.com/ytdl-org/youtube-dl/issues/5710,
             # it is not possible and the download location is returned instead
             return download_folder
@@ -47,7 +48,7 @@ class DownloaderService:
             return FileInfo(file, BytesIO(fh.read()))
 
     def remove_file(self, file: str, download_folder: str = config.get_download_folder()) -> None:
-        os.remove(safe_join(download_folder, name))
+        os.remove(safe_join(download_folder, file))
 
     def load_files_in_directory(self, directory: str = config.get_download_folder()) -> FileInfo:
         files = os.listdir(directory)

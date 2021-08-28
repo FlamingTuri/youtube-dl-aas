@@ -1,5 +1,6 @@
 from io import BytesIO
 
+
 class FileInfo:
 
     def __init__(self, name: str, content: BytesIO, mimetype: str = None):

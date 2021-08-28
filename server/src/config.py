@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import datetime
 
+
 class Config:
 
     __default_download_folder = Path.home().joinpath('Downloads', 'youtube-dl')

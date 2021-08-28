@@ -1,6 +1,5 @@
 from src.restx_config import api
 from flask_restx import Resource, fields
-from flask_restx import Resource, fields
 from src.service.doc_service import DocService
 
 ns = api.namespace('youtube-dl', description='Youtube dl documentation')
@@ -11,6 +10,7 @@ doc = api.model(
         "content": fields.String(required=True, description="Documentation returned by Youtube dl library"),
     },
 )
+
 
 @ns.route('/doc')
 class Doc(Resource):
