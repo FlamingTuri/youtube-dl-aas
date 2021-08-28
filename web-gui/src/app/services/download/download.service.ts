@@ -42,12 +42,18 @@ export class DownloadService {
   }
 
   getFileNameFromHeaders(headers: HttpHeaders): string {
-    const contenDisposition = headers.get('content-disposition');
-    if (contenDisposition === null) {
+    const contentDisposition = headers.get('content-disposition');
+    if (contentDisposition === null) {
       return 'unknown';
     }
-    // https://stackoverflow.com/a/23054920/7380828
-    const fileName = contenDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-    return fileName === null ? 'unknown' : fileName[1];
+    // https://stackoverflow.com/a/23054920
+    const regexpMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+    const fileName = regexpMatch === null ? 'unknown' : regexpMatch[1];
+    return this.removeLeadingAndTrailingQuotes(fileName);
+  }
+
+  private removeLeadingAndTrailingQuotes(string: string) {
+    // equivalent of /^(")?(.+?)(")?$/
+    return string.replace(/^['"]/, '').replace(/['"]$/, '');
   }
 }
