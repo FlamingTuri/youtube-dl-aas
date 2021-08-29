@@ -12,9 +12,9 @@ jobs:
           - os: ubuntu-latest
             artifactName: youtubeDlaas-linux
           - os: windows-latest
-            artifactName: youtubeDlaas-windows
+            artifactName: youtubeDlaas-windows.exe
           - os: macos-latest
-            artifactName: youtubeDlaas-macos
+            artifactName: youtubeDlaas-macos.app
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v2
