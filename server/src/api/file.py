@@ -1,12 +1,14 @@
 from src.service.downloader_service import DownloaderService
 from src.restx_config import api
-from flask_restx import Resource, fields, reqparse
-from flask import send_file
+from flask_restx import Resource
+from flask import send_file, abort
 from src.models.file_info import FileInfo
+
 
 ns = api.namespace('youtube-dl', description='Download operations')
 
 downloader_service = DownloaderService()
+
 
 def send(file_info: FileInfo):
     return send_file(
@@ -15,6 +17,7 @@ def send(file_info: FileInfo):
             as_attachment=True,
             attachment_filename=file_info.name
     )
+
 
 @ns.route('/file/<name>')
 class File(Resource):
@@ -33,6 +36,7 @@ class File(Resource):
             return
         except FileNotFoundError:
             return abort(404)
+
 
 @ns.route('/files')
 class Files(Resource):

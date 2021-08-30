@@ -5,10 +5,11 @@ from flask_restx import Resource, fields
 ns = api.namespace('youtube-dl', description='Download operations')
 
 download = api.model('Download', {
-    'urls': fields.List(fields.String(), required = True),
-    'ydlOpts': fields.Wildcard(fields.String(), required = False),
-    'temporary': fields.Boolean(default = False, required = False)
+    'urls': fields.List(fields.String(), required=True),
+    'ydlOpts': fields.Wildcard(fields.String(), required=False),
+    'temporary': fields.Boolean(default=False, required=False)
 })
+
 
 @ns.route('/download')
 class Download(Resource):

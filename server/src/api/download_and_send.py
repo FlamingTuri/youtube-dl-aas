@@ -6,10 +6,11 @@ from flask import send_file
 ns = api.namespace('youtube-dl', description='Download operations')
 
 download = api.model('Download', {
-    'urls': fields.List(fields.String(), required = True),
-    'ydlOpts': fields.Wildcard(fields.String(), required = False),
-    'temporary': fields.Boolean(default = False, required = False)
+    'urls': fields.List(fields.String(), required=True),
+    'ydlOpts': fields.Wildcard(fields.String(), required=False),
+    'temporary': fields.Boolean(default=False, required=False)
 })
+
 
 @ns.route('/download-and-send')
 class DownloadAndSend(Resource):
@@ -29,11 +30,11 @@ class DownloadAndSend(Resource):
         temporary = body.get('temporary', False)
 
         download_directory = self.__downloader_service.download(urls, ydl_opts, temporary)
-        
+
         loaded = self.__downloader_service.load_files_in_directory(download_directory)
 
         if temporary:
-           self.__downloader_service.remove_directory(download_directory)
+            self.__downloader_service.remove_directory(download_directory)
 
         return send_file(
             loaded.content,

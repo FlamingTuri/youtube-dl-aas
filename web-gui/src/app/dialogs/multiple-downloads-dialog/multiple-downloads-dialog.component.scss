@@ -1,0 +1,13 @@
+h2 {
+    text-align: center;
+}
+
+#list-container {
+    display: flex;
+    justify-content: center;
+    height: 75%;
+}
+
+mat-form-field, mat-list {
+    width: 90%;
+}
