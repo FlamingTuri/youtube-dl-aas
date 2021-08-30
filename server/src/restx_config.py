@@ -9,12 +9,14 @@ log = logging.getLogger(__name__)
 
 pyinstaller_temp_folder = getattr(sys, '_MEIPASS', None)
 
+
 def resource_path(relative_path):
-    if pyinstaller_temp_folder == None:
+    if pyinstaller_temp_folder is None:
         # not running in pyinstaller bundle
         return relative_path
     else:
         return os.path.join(pyinstaller_temp_folder, relative_path)
+
 
 resources_folder = 'resources'
 app = Flask(
@@ -34,6 +36,7 @@ api.init_app(app)
 @app.route('/home/', methods=['GET'])
 def index():
     return render_template('index.html')
+
 
 @api.errorhandler
 def default_error_handler(error: Exception):
