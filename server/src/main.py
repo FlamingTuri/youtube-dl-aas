@@ -1,4 +1,4 @@
-from src.restx_config import app, api
+from src.flask_config import app, api
 from src.api.download import ns as download_namespace
 from src.api.download_and_send import ns as download_and_send_namespace
 from src.api.file import ns as file_namespace

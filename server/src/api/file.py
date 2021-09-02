@@ -1,5 +1,5 @@
 from src.service.downloader_service import DownloaderService
-from src.restx_config import api
+from src.config.flask_restx_config import api
 from flask_restx import Resource
 from flask import send_file, abort
 from src.models.file_info import FileInfo
