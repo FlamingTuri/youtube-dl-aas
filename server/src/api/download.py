@@ -1,5 +1,5 @@
-from src.config.flask_restx_config import api
-from src.service.downloader_service import DownloaderService
+from config.flask_restx_config import api
+from service.downloader_service import DownloaderService
 from flask_restx import Resource, fields
 
 ns = api.namespace('youtube-dl', description='Download operations')

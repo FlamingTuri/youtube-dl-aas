@@ -1,6 +1,6 @@
-from src.config.flask_restx_config import api
+from config.flask_restx_config import api
 from flask_restx import Resource, fields
-from src.service.version_service import VersionService
+from service.version_service import VersionService
 
 ns = api.namespace('youtube-dl', description='Youtube dl documentation')
 

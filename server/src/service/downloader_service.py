@@ -1,11 +1,11 @@
 import youtube_dl
-from src.youtube_dl_progress_hook import YoutubeDlProgressHook
-from src.config.config import Config
+from youtube_dl_progress_hook import YoutubeDlProgressHook
+from config.config import Config
 from io import BytesIO
 import zipfile
 from flask import safe_join
 import os
-from src.models.file_info import FileInfo
+from models.file_info import FileInfo
 import shutil
 
 

@@ -1,5 +1,5 @@
 import youtube_dl
-from src.models.version_dto import VersionDto
+from models.version_dto import VersionDto
 
 
 class VersionService:
