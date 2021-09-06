@@ -2,24 +2,13 @@ import os
 import sys
 from flask import Flask, render_template
 from flask_cors import CORS
+from src.config.pyinstaller_util import PyInstallerUtil
 
 
-pyinstaller_temp_folder = getattr(sys, '_MEIPASS', None)
-
-
-def resource_path(relative_path):
-    if pyinstaller_temp_folder is None:
-        # not running in pyinstaller bundle
-        return os.path.join(os.getcwd(), relative_path)
-    else:
-        return os.path.join(pyinstaller_temp_folder, relative_path)
-
-
-resources_folder = 'resources'
 app = Flask(
     __name__,
-    static_folder=resource_path(os.path.join(resources_folder, 'home')),
-    template_folder=resource_path(os.path.join(resources_folder, 'templates'))
+    static_folder=PyInstallerUtil.load_from_resource('home'),
+    template_folder=PyInstallerUtil.load_from_resource('templates')
 )
 app.config['RESTX_VALIDATE'] = True
 app.config['CORS_EXPOSE_HEADERS'] = 'Content-Disposition'
