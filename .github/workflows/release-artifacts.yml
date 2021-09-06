@@ -23,7 +23,41 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - run: node .github/script/release-artifacts.mjs ${{ matrix.artifactName }}
+      - run: > 
+          node .github/script/release-artifacts.mjs
+          ${{ matrix.artifactName }} 
+          main_qt.py
+          requirements,requirements.gui,requirements.dev
+      - uses: JasonEtco/upload-to-release@master
+        with:
+          args: server/dist/${{ matrix.artifactName }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release-headless:
+    name: Headless release for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifactName: youtubeDlaas-linux-headless
+          - os: windows-latest
+            artifactName: youtubeDlaas-windows-headless.exe
+          - os: macos-latest
+            artifactName: youtubeDlaas-macos-headless.app
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - run: > 
+          node .github/script/release-artifacts.mjs
+          ${{ matrix.artifactName }} 
+          main.py
+          requirements,requirements.dev
       - uses: JasonEtco/upload-to-release@master
         with:
           args: server/dist/${{ matrix.artifactName }}
