@@ -1,17 +1,14 @@
 import youtube_dl
-from youtube_dl_progress_hook import YoutubeDlProgressHook
-from config.config import Config
+from src.config.config import Config
 from io import BytesIO
 import zipfile
 from flask import safe_join
 import os
-from models.file_info import FileInfo
+from src.models.file_info import FileInfo
 import shutil
 
 
 class DownloaderService:
-
-    progress_hook = YoutubeDlProgressHook()
 
     config = Config()
     name_template = '%(title)s.%(ext)s'

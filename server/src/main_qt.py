@@ -1,7 +1,7 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QAction, QMenu, QSystemTrayIcon
 from threading import Thread, Timer
-from flask_config import app as flaskApp
+from src.config.flask_config import app as flaskApp
 import webbrowser
 
 
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     menu.addAction(quit)
 
     # App icon
-    icon = QIcon("resources/icon.png")
+    icon = QIcon('resources/icon.png')
 
     # Adding item on the menu bar
     tray = QSystemTrayIcon()

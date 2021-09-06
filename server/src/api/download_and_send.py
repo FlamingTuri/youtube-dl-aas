@@ -1,5 +1,5 @@
-from config.flask_restx_config import api
-from service.downloader_service import DownloaderService
+from src.config.flask_restx_config import api
+from src.service.downloader_service import DownloaderService
 from flask_restx import Resource, fields
 from flask import send_file
 

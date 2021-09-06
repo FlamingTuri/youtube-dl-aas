@@ -1,5 +1,5 @@
 from youtube_dl import YoutubeDL
-from models.doc_dto import DocDto
+from src.models.doc_dto import DocDto
 
 
 class DocService:
