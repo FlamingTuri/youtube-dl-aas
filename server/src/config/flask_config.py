@@ -13,7 +13,7 @@ app.config['CORS_EXPOSE_HEADERS'] = 'Content-Disposition'
 CORS(app)
 
 
-@app.route('/', methods = ['GET'])
+@app.route('/', methods=['GET'])
 def to_index():
     return redirect('/home')
 
