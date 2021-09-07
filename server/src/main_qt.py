@@ -1,9 +1,8 @@
 import webbrowser
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QAction, QMenu, QSystemTrayIcon
-from threading import Thread, Timer
 from src.main import start_flask_app
-
+from threading import Thread, Timer
 
 if __name__ == '__main__':
     qtApp = QApplication([])

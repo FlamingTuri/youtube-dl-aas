@@ -1,11 +1,11 @@
+import os
+import shutil
 import youtube_dl
-from src.config.config import Config
-from io import BytesIO
 import zipfile
 from flask import safe_join
-import os
+from io import BytesIO
+from src.config.config import Config
 from src.models.file_info import FileInfo
-import shutil
 
 
 class DownloaderService:
