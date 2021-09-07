@@ -1,8 +1,8 @@
+import webbrowser
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QAction, QMenu, QSystemTrayIcon
 from threading import Thread, Timer
-from src.config.flask_config import app as flaskApp
-import webbrowser
+from src.main import start_flask_app
 
 
 if __name__ == '__main__':
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     tray.setContextMenu(menu)
 
     # start flask application
-    flaskThread = Thread(target=flaskApp.run, daemon=True).start()
+    flaskThread = Thread(target=start_flask_app, daemon=True).start()
 
     # open the web browser after 1.25 seconds
     Timer(1.25, lambda: openBrowser()).start()
