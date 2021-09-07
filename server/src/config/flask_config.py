@@ -1,6 +1,4 @@
-import os
-import sys
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_cors import CORS
 from src.config.pyinstaller_util import PyInstallerUtil
 
@@ -13,6 +11,11 @@ app = Flask(
 app.config['RESTX_VALIDATE'] = True
 app.config['CORS_EXPOSE_HEADERS'] = 'Content-Disposition'
 CORS(app)
+
+
+@app.route('/', methods = ['GET'])
+def to_index():
+    return redirect('/home')
 
 
 @app.route('/home', methods=['GET'])
