@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ErrorDialogComponent {
 
+  errorTitle = 'Unknown error';
   errorMessage: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
@@ -16,9 +17,10 @@ export class ErrorDialogComponent {
 
     const error = data.error;
     if (error instanceof Blob) {
+      this.errorTitle = `Error ${data.status}`;
       this.parseErrorMessageFromBlob(error);
     } else {
-      this.errorMessage = `unkown error instance, look console output`;
+      this.errorMessage = `unkown error instance, to know more look at your browser console output`;
       console.error(data);
     }
   }
