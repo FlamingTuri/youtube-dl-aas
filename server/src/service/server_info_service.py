@@ -1,6 +1,7 @@
 import socket
 import youtube_dl
 from src.models.server_info_dto import ServerInfoDto
+from src.version import __version__
 
 
 class ServerInfoService:
@@ -15,7 +16,7 @@ class ServerInfoService:
 
     def get_info(self) -> str:
         return ServerInfoDto(
-            'TODO', 
+            __version__, 
             youtube_dl.version.__version__,
             self.__host_name
         )
