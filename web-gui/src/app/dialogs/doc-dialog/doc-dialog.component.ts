@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { DocService } from 'src/app/services/doc/doc.service';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-doc-dialog',
@@ -8,10 +8,7 @@ import { DocService } from 'src/app/services/doc/doc.service';
 })
 export class DocDialogComponent {
 
-  youtubeDlDoc: string = '';
-
-  constructor(private docService: DocService) {
-    docService.getYoutubeDlDoc().then(result => this.youtubeDlDoc = result.content);
+  constructor(@Inject(MAT_DIALOG_DATA) public youtubeDlDoc: string) {
   }
 
 }

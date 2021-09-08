@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { DocService } from 'src/app/services/doc/doc.service';
 
 @Component({
   selector: 'app-options-dialog',
@@ -10,13 +11,27 @@ import { DialogService } from 'src/app/services/dialog/dialog.service';
 export class OptionsDialogComponent {
 
   youtubeDlOptions: string;
+  youtubeDlDoc: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<OptionsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public ydlOpts: Map<string, string | number>,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    private docService: DocService) {
     const ydlOptsObj = Object.fromEntries(ydlOpts);
     this.youtubeDlOptions = JSON.stringify(ydlOptsObj, null, 2);
+  }
+
+  showYoutubeDlDocs() {
+    if (this.youtubeDlDoc === '') {
+      this.docService.getYoutubeDlDoc()
+        .then(result => {
+          this.youtubeDlDoc = result.content;
+          this.dialogService.openYoutubeDlDocsDialog(this.youtubeDlDoc);
+        });
+    } else {
+      this.dialogService.openYoutubeDlDocsDialog(this.youtubeDlDoc);
+    }
   }
 
   cancel() {
