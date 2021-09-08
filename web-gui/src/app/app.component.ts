@@ -17,9 +17,11 @@ export class AppComponent {
 
   ydlOpts: Map<string, string | number> = new Map();
 
-  youtubeDlVersion = 'unknown';
-
   hostAddress = 'unknown';
+
+  serverVersion = 'unknown';
+
+  youtubeDlVersion = 'unknown';
 
   urls: string[] = [''];
 
@@ -32,6 +34,7 @@ export class AppComponent {
     infoService.getServerInfo().then(serverInfo => {
       console.log(serverInfo);
       this.hostAddress = serverInfo.hostAddress;
+      this.serverVersion = serverInfo.serverVersion;
       this.youtubeDlVersion = serverInfo.youtubeDlVersion;
     });
   }
