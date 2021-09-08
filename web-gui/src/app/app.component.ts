@@ -4,7 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { saveAs } from 'file-saver';
 import { DialogService } from './services/dialog/dialog.service';
 import { DownloadService } from './services/download/download.service';
-import { VersionService } from './services/version/version.service';
+import { InfoService } from './services/info/info.service';
 
 @Component({
   selector: 'app-root',
@@ -19,16 +19,20 @@ export class AppComponent {
 
   youtubeDlVersion = 'unknown';
 
+  hostAddress = 'unknown';
+
   urls: string[] = [''];
 
   downloadInProgress: boolean = false;
 
   constructor(
-    private versionService: VersionService,
+    infoService: InfoService,
     private downloadService: DownloadService,
     private dialogService: DialogService) {
-    versionService.getVersion().then(version => {
-      this.youtubeDlVersion = version.youtubeDlVersion;
+    infoService.getServerInfo().then(serverInfo => {
+      console.log(serverInfo);
+      this.hostAddress = serverInfo.hostAddress;
+      this.youtubeDlVersion = serverInfo.youtubeDlVersion;
     });
   }
 
