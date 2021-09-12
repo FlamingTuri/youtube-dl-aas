@@ -1,15 +1,21 @@
-h2 {
+h1 {
   text-align: center;
+  font-size: larger;
+}
+
+p {
+  text-align: center;
+  font-size: small;
 }
 
 .text-area-container {
   display: flex;
   justify-content: center;
-  height: 75%;
+  height: 68%;
 }
 
 textarea {
-  font-size: 20px;
+  font-size: larger;
   width: 97%;
   height: 100%;
   box-sizing: border-box;

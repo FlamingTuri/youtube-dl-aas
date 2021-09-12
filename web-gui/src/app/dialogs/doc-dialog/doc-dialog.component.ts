@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
-import { DocService } from 'src/app/services/doc/doc.service';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AbstractMatDialog } from '../abstract-mat-dialog';
 
 @Component({
   selector: 'app-doc-dialog',
   templateUrl: './doc-dialog.component.html',
   styleUrls: ['./doc-dialog.component.scss']
 })
-export class DocDialogComponent {
+export class DocDialogComponent extends AbstractMatDialog {
 
-  youtubeDlDoc: string = '';
-
-  constructor(private docService: DocService) {
-    docService.getYoutubeDlDoc().then(result => this.youtubeDlDoc = result.content);
+  constructor(
+    public dialogRef: MatDialogRef<DocDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public youtubeDlDoc: string) {
+    super(dialogRef);
   }
 
 }

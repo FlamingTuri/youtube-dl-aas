@@ -1,23 +1,23 @@
 from flask_restx import Resource, fields
 from src.config.flask_restx_config import api
-from src.service.version_service import VersionService
+from src.service.server_info_service import ServerInfoService
 
 ns = api.namespace('youtube-dl', description='Youtube dl documentation')
 
 doc = api.model(
-    "Version",
-    {
+    'Info', {
+        "hostAddress": fields.String(required=True, description="Host address where the server is running"),
         "serverVersion": fields.String(required=True, description="Server version"),
         "youtubeDlVersion": fields.String(required=True, description="Youtube dl version"),
-    },
+    }
 )
 
 
-@ns.route('/version')
-class Version(Resource):
+@ns.route('/info')
+class Info(Resource):
 
-    version_service = VersionService()
+    server_info_service = ServerInfoService()
 
     @ns.marshal_with(doc)
     def get(self):
-        return self.version_service.get_version()
+        return self.server_info_service.get_info()

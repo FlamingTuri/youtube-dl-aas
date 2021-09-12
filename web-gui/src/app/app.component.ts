@@ -4,7 +4,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { saveAs } from 'file-saver';
 import { DialogService } from './services/dialog/dialog.service';
 import { DownloadService } from './services/download/download.service';
-import { VersionService } from './services/version/version.service';
+import { InfoService } from './services/info/info.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,10 @@ export class AppComponent {
 
   ydlOpts: Map<string, string | number> = new Map();
 
+  hostAddress = 'unknown';
+
+  serverVersion = 'unknown';
+
   youtubeDlVersion = 'unknown';
 
   urls: string[] = [''];
@@ -24,11 +28,14 @@ export class AppComponent {
   downloadInProgress: boolean = false;
 
   constructor(
-    private versionService: VersionService,
+    infoService: InfoService,
     private downloadService: DownloadService,
     private dialogService: DialogService) {
-    versionService.getVersion().then(version => {
-      this.youtubeDlVersion = version.youtubeDlVersion;
+    infoService.getServerInfo().then(serverInfo => {
+      console.log(serverInfo);
+      this.hostAddress = serverInfo.hostAddress;
+      this.serverVersion = serverInfo.serverVersion;
+      this.youtubeDlVersion = serverInfo.youtubeDlVersion;
     });
   }
 
@@ -38,6 +45,10 @@ export class AppComponent {
         this.urls = newUrls;
       }
     });
+  }
+
+  isMultipleDownload(): boolean {
+    return this.urls.length > 1
   }
 
   isDownloadDisabled(): boolean {
