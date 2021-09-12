@@ -47,6 +47,10 @@ export class AppComponent {
     });
   }
 
+  isMultipleDownload(): boolean {
+    return this.urls.length > 1
+  }
+
   isDownloadDisabled(): boolean {
     return !this.urls.some(url => url !== undefined && url !== null && url !== '') && !this.downloadInProgress;
   }
