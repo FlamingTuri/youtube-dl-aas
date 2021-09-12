@@ -2,13 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { DocService } from 'src/app/services/doc/doc.service';
+import { AbstractMatDialog } from '../abstract-mat-dialog';
 
 @Component({
   selector: 'app-options-dialog',
   templateUrl: './options-dialog.component.html',
   styleUrls: ['./options-dialog.component.scss']
 })
-export class OptionsDialogComponent {
+export class OptionsDialogComponent extends AbstractMatDialog {
 
   youtubeDlOptions: string;
   youtubeDlDoc: string = '';
@@ -18,6 +19,7 @@ export class OptionsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public ydlOpts: Map<string, string | number>,
     private dialogService: DialogService,
     private docService: DocService) {
+    super(dialogRef);
     const ydlOptsObj = Object.fromEntries(ydlOpts);
     this.youtubeDlOptions = JSON.stringify(ydlOptsObj, null, 2);
   }

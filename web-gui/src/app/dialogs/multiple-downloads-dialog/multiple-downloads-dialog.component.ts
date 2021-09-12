@@ -1,18 +1,20 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AbstractMatDialog } from 'src/app/dialogs/abstract-mat-dialog';
 
 @Component({
   selector: 'app-multiple-downloads-dialog',
   templateUrl: './multiple-downloads-dialog.component.html',
   styleUrls: ['./multiple-downloads-dialog.component.scss']
 })
-export class MultipleDownloadsDialogComponent {
+export class MultipleDownloadsDialogComponent extends AbstractMatDialog {
 
   urls: string[] = [''];
 
   constructor(
     public dialogRef: MatDialogRef<MultipleDownloadsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) urls: string[]) {
+    super(dialogRef);
     this.urls = urls;
   }
 
