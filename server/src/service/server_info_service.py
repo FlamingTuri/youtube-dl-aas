@@ -16,7 +16,7 @@ class ServerInfoService:
 
     def get_info(self) -> str:
         return ServerInfoDto(
-            __version__, 
+            __version__,
             youtube_dl.version.__version__,
             self.__host_name
         )
