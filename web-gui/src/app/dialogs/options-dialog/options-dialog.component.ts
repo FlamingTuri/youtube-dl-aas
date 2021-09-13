@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { DocService } from 'src/app/services/doc/doc.service';
-import { AbstractMatDialog } from '../abstract-mat-dialog';
+import { AbstractMatDialog } from 'src/app/dialogs/abstract-mat-dialog';
 
 @Component({
   selector: 'app-options-dialog',
