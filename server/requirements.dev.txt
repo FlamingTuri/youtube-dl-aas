@@ -1,4 +1,4 @@
-altgraph==0.17
+altgraph==0.17.2
 click==8.0.1
 flake8==3.9.2
 mccabe==0.6.1
