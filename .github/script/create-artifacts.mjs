@@ -5,9 +5,9 @@ import * as path from 'path';
 // Default value `youtube-dl-aas` if no args provided via CLI.
 const appName = process.argv[2] || 'youtube-dl-aas';
 
-const main = process.argv[4] || 'main.py';
+const main = process.argv[3] || 'main.py';
 
-const requirementsList = process.argv[5] || 'requirements';
+const requirementsList = process.argv[4] || 'requirements';
 
 const startDir = process.cwd()
 const webGuiDir = path.join(startDir, 'web-gui');
@@ -53,11 +53,14 @@ requirementsList.split(',').forEach(requirement => {
     execSync(`python -m pip install -r ${requirement}.txt`);
 });
 
+const addDataSeparator = process.platform === 'win32' ? ';' : ':';
+
 // create ${appName} executable in server/dist
 const generateExecutableCmd = [
-    `pyinstaller src/${main} --onefile --name ${appName}`,
-    '--add-data "resources/templates:resources/templates"',
-    '--add-data "resources/home:resources/home"',
+    `pyinstaller --onefile --name ${appName}`,
+    `--add-data "resources/templates${addDataSeparator}resources/templates"`,
+    `--add-data "resources/home${addDataSeparator}resources/home"`,
+    `src/${main}`
 ].join(' ');
 console.log(`creating ${appName} executable in server/dist`);
 execSync(generateExecutableCmd);
