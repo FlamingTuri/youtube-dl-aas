@@ -1,4 +1,10 @@
-<div id="version-info">
+<div id="server-info">
+  Page address: <a href="http://{{hostAddress}}:5000" target="_blank">
+    {{hostAddress}}:5000
+  </a>
+  <br>
+  Server version: {{serverVersion}}
+  <br>
   Youtube dl version: {{youtubeDlVersion}}
   <br>
   <a href="https://ytdl-org.github.io/youtube-dl/supportedsites.html" target="_blank">
@@ -12,23 +18,18 @@
 
   <div class="form-container">
     <form name="urlForm">
-      <!-- one download -->
-      <mat-form-field *ngIf="urls.length <= 1" class="url-form-field" [style.width.px]=500>
-        <mat-label>Link</mat-label>
-        <input matInput type="text" name="url" [(ngModel)]="urls[0]">
+      <mat-form-field class="url-form-field" [style.width.px]=500>
+        <!-- one download -->
+        <mat-label *ngIf="!isMultipleDownload()">Link</mat-label>
+        <input *ngIf="!isMultipleDownload()" matInput type="text" name="url" [(ngModel)]="urls[0]">
+        <!-- multiple downloads -->
+        <input *ngIf="isMultipleDownload()" matInput type="text" name="url" [ngModel]="urls.length + ' links selected'"
+          readonly="readonly">
+
         <button mat-button matSuffix mat-icon-button aria-label="Add" (click)="openMultipleDownloadDialog()">
           <mat-icon>add</mat-icon>
         </button>
       </mat-form-field>
-      <!-- multiple downloads -->
-      <div *ngIf="urls.length > 1">
-        <mat-label class="url-form-field" [style.width.px]=500>
-          {{urls.length}} links selected
-        </mat-label>
-        <button mat-button matSuffix mat-icon-button aria-label="Add" (click)="openMultipleDownloadDialog()">
-          <mat-icon>add</mat-icon>
-        </button>
-      </div>
 
       <div class="button-container">
 
@@ -56,9 +57,5 @@
   </div>
 
   <mat-spinner *ngIf="downloadInProgress"></mat-spinner>
-
-  <div class="footer">
-    <button class="docs-button" mat-raised-button (click)=showYoutubeDlDocs()>Show Docs</button>
-  </div>
 
 </div>

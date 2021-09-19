@@ -1,18 +1,10 @@
-from src.restx_config import app, api
-from src.api.download import ns as download_namespace
-from src.api.download_and_send import ns as download_and_send_namespace
-from src.api.file import ns as file_namespace
-from src.api.doc import ns as doc_namespace
-from src.api.version import ns as version_namespace
+from src.config.flask_config import app
 
 
-def init(flask_app):
-    api.add_namespace(download_namespace)
-    api.add_namespace(download_and_send_namespace)
-    api.add_namespace(file_namespace)
-    api.add_namespace(doc_namespace)
-    api.add_namespace(version_namespace)
+def start_flask_app():
+    print(" * App swagger will be available at: http://127.0.0.1:5000/swagger")
+    app.run(host="0.0.0.0", debug=False)
 
 
 if __name__ == '__main__':
-    app.run()
+    start_flask_app()

@@ -4,9 +4,13 @@ This project is a wrapper which exposes [youtube-dl](https://github.com/ytdl-org
 
 ## Install
 
+The app is distributed in two versions:
+- standard, that ships as a simple tray application
+- headless, ideal to be run as a deamon when a system starts up
+
 Download and run the [latest release](https://github.com/FlamingTuri/url-builder/releases).
 
-Then visit http://127.0.0.1:5000/home
+The application is exposed at http://127.0.0.1:5000/home
 
 ## Development
 
@@ -18,6 +22,8 @@ cd server
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
+pip3 install -r requirements.gui.txt
+pip3 install -r requirements.dev.txt
 ```
 
 ```bash
@@ -30,10 +36,9 @@ npm install
 
 ```bash
 # server
-source server/venv/bin/activate
-export FLASK_APP=server/src/main.py
-export FLASK_ENV=development
-python3 -m flask run --host=0.0.0.0
+cd server
+source venv/bin/activate
+python3 -m src.main
 ```
 
 ```bash

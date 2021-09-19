@@ -5,6 +5,10 @@ import * as path from 'path';
 // Default value `youtube-dl-aas` if no args provided via CLI.
 const appName = process.argv[2] || 'youtube-dl-aas';
 
+const main = process.argv[4] || 'main.py';
+
+const requirementsList = process.argv[5] || 'requirements';
+
 const startDir = process.cwd()
 const webGuiDir = path.join(startDir, 'web-gui');
 process.chdir(webGuiDir);
@@ -22,7 +26,7 @@ process.chdir(serverDir);
 
 // move ng build files inside server folder
 const staticFilesDir = path.join(webGuiDir, 'dist', 'web-gui');
-const serverStaticFilesDir = path.join(serverDir, 'src', 'resources');
+const serverStaticFilesDir = path.join(serverDir, 'resources');
 
 const moveToServerDir = (fileName, serverSubdir) => {
     const webGuiFile = path.join(staticFilesDir, fileName);
@@ -45,13 +49,15 @@ fs.readdirSync(staticFilesDir).forEach(fileName => {
 
 // install server release requirements
 console.log('installing server release requirements');
-execSync('python3 -m pip install -r requirements.dev.txt');
+requirementsList.split(',').forEach(requirement => {
+    execSync(`python -m pip install -r ${requirement}.txt`);
+});
 
 // create ${appName} executable in server/dist
 const generateExecutableCmd = [
-    `pyinstaller src/main.py --onefile --name ${appName}`,
-    '--add-data "src/resources/templates:resources/templates"',
-    '--add-data "src/resources/home:resources/home"',
+    `pyinstaller src/${main} --onefile --name ${appName}`,
+    '--add-data "resources/templates:resources/templates"',
+    '--add-data "resources/home:resources/home"',
 ].join(' ');
 console.log(`creating ${appName} executable in server/dist`);
 execSync(generateExecutableCmd);
