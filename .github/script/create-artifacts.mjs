@@ -50,7 +50,7 @@ fs.readdirSync(staticFilesDir).forEach(fileName => {
 // install server release requirements
 console.log('installing server release requirements');
 requirementsList.split(',').forEach(requirement => {
-    execSync(`python3 -m pip install -r ${requirement}.txt`);
+    execSync(`python -m pip install -r ${requirement}.txt`);
 });
 
 // create ${appName} executable in server/dist
