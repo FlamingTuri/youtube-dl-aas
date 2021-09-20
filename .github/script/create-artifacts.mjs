@@ -55,11 +55,20 @@ requirementsList.split(',').forEach(requirement => {
 
 const addDataSeparator = process.platform === 'win32' ? ';' : ':';
 
+function addFolderResource(folder) {
+    return `--add-data "${folder}${addDataSeparator}${folder}"`;
+}
+
+function addFileResource(folder, fileName) {
+    return `--add-data "${folder}/${fileName}${addDataSeparator}${folder}"`;
+}
+
 // create ${appName} executable in server/dist
 const generateExecutableCmd = [
     `pyinstaller --onefile --name ${appName}`,
-    `--add-data "resources/templates${addDataSeparator}resources/templates"`,
-    `--add-data "resources/home${addDataSeparator}resources/home"`,
+    addFolderResource('resources/templates'),
+    addFolderResource('resources/home'),
+    addFileResource('resources', 'icon.png'),
     `src/${main}`
 ].join(' ');
 console.log(`creating ${appName} executable in server/dist`);

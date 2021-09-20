@@ -1,6 +1,7 @@
 import webbrowser
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QAction, QMenu, QSystemTrayIcon
+from src.config.pyinstaller_util import PyInstallerUtil
 from src.main import start_flask_app
 from threading import Thread, Timer
 
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     menu.addAction(quit)
 
     # App icon
-    icon = QIcon('resources/icon.png')
+    icon = QIcon(PyInstallerUtil.load_from_resource('icon.png'))
 
     # Adding item on the menu bar
     tray = QSystemTrayIcon()
