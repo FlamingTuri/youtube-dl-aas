@@ -1,15 +1,15 @@
 from flask import send_file, abort
+from flask.wrappers import Response
 from flask_restx import Resource
-from src.config.flask_restx_config import api
+from src.config.flask_restx_config import api, ns
 from src.models.file_info import FileInfo
 from src.service.downloader_service import DownloaderService
 
-ns = api.namespace('youtube-dl', description='Download operations')
 
 downloader_service = DownloaderService()
 
 
-def send(file_info: FileInfo):
+def send(file_info: FileInfo) -> Response:
     return send_file(
             file_info.content,
             mimetype=file_info.mimetype,
@@ -21,6 +21,7 @@ def send(file_info: FileInfo):
 @ns.route('/file/<name>')
 class File(Resource):
 
+    @api.param('name', 'The name of a previously downloaded file that should be sent to your device')
     def get(self, name):
         try:
             file = downloader_service.load_file(name)
@@ -29,6 +30,7 @@ class File(Resource):
         except FileNotFoundError:
             return abort(404)
 
+    @api.param('name', 'The name of a previously downloaded file that should be deleted')
     def delete(self, name):
         try:
             downloader_service.remove_file(name)

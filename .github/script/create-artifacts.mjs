@@ -19,7 +19,7 @@ execSync('npm install');
 
 // generate web gui static files
 console.log('generating web gui static files');
-execSync('npx ng build --baseHref="/home/"');
+execSync('npx ng build --prod --baseHref="/home/"');
 
 const serverDir = path.join(startDir, 'server')
 process.chdir(serverDir);

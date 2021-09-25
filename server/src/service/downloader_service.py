@@ -33,8 +33,8 @@ class DownloaderService:
         in_memory_zip = BytesIO()
         with zipfile.ZipFile(in_memory_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
             for file in files:
-                data = zipfile.ZipInfo(safe_join(download_folder, file))
-                zf.writestr(data, file)
+                # second param is necessary to avoid to zip the os directory structure
+                zf.write(safe_join(download_folder, file), file)
         in_memory_zip.seek(0)
 
         now = self.config.get_current_time_as_string()
