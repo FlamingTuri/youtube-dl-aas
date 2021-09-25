@@ -1,8 +1,6 @@
 from flask_restx import Resource, fields
-from src.config.flask_restx_config import api
+from src.config.flask_restx_config import api, ns
 from src.service.downloader_service import DownloaderService
-
-ns = api.namespace('youtube-dl', description='Download operations')
 
 download = api.model('Download', {
     'urls': fields.List(fields.String(), required=True),

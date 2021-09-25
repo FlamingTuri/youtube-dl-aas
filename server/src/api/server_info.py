@@ -1,8 +1,6 @@
 from flask_restx import Resource, fields
-from src.config.flask_restx_config import api
+from src.config.flask_restx_config import api, ns
 from src.service.server_info_service import ServerInfoService
-
-ns = api.namespace('youtube-dl', description='Youtube dl documentation')
 
 doc = api.model(
     'Info', {
