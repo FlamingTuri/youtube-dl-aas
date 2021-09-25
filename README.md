@@ -79,3 +79,7 @@ node .github/script/create-artifacts.mjs \
     main.py \
     requirements,requirements.dev
 ```
+
+## License
+
+[GPL-3.0](LICENSE)
