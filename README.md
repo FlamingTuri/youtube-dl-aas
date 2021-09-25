@@ -10,7 +10,7 @@ The app is distributed for Windows, Mac and Ubuntu based systems in two versions
 - standard, that ships as a simple tray application
 - headless, ideal to be run as a deamon when a system starts up
 
-Download and run the [latest release](https://github.com/FlamingTuri/url-builder/releases).
+Download and run the [latest release](https://github.com/FlamingTuri/youtube-dl-aas/releases/latest).
 
 The application is exposed at http://127.0.0.1:5000/home
 
