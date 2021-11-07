@@ -3,6 +3,6 @@ click==8.0.3
 flake8==4.0.1
 mccabe==0.6.1
 pycodestyle==2.8.0
-pyflakes==2.3.1
+pyflakes==2.4.0
 pyinstaller==4.6
 pyinstaller-hooks-contrib==2021.3
