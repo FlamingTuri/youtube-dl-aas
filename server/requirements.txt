@@ -13,4 +13,4 @@ pyrsistent==0.18.0
 pytz==2021.3
 six==1.16.0
 Werkzeug==2.0.2
-youtube-dl==2021.6.6
+youtube-dl==2021.12.17
