@@ -19,7 +19,7 @@ jobs:
             appName: youtubeDlaas-macos.app
             artifactName: youtubeDlaas-macos.zip
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.0.0
         with:
           node-version: 'lts/*'
@@ -55,7 +55,7 @@ jobs:
             appName: youtubeDlaas-macos-headless.app
             artifactName: youtubeDlaas-macos-headless.zip
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3.0.0
         with:
           node-version: 'lts/*'
