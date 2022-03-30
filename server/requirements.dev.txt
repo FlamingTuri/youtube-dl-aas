@@ -1,5 +1,5 @@
 altgraph==0.17.2
-click==8.1.0
+click==8.1.1
 flake8==4.0.1
 mccabe==0.6.1
 pycodestyle==2.8.0
