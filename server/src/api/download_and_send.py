@@ -12,7 +12,6 @@ download = api.model('Download', {
 
 @ns.route('/download-and-send')
 class DownloadAndSend(Resource):
-    '''TODO'''
 
     __downloader_service = DownloaderService()
 
