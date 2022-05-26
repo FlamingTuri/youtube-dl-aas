@@ -24,21 +24,24 @@ def index():
     return render_template('index.html')
 
 
-def init_api():
+def init_api(fs_storage: bool):
     from src.config.flask_restx_config import api
 
     api.init_app(app)
 
     from src.api.doc import ns as doc_namespace
-    from src.api.download import ns as download_namespace
-    from src.api.download_and_send import ns as download_and_send_namespace
-    from src.api.file import ns as file_namespace
-    from src.api.server_info import ns as server_info_namespace
     api.add_namespace(doc_namespace)
-    api.add_namespace(download_namespace)
+
+    if fs_storage:
+        from src.api.download import ns as download_namespace
+        api.add_namespace(download_namespace)
+
+    from src.api.download_and_send import ns as download_and_send_namespace
     api.add_namespace(download_and_send_namespace)
-    api.add_namespace(file_namespace)
+
+    if fs_storage:
+        from src.api.file import ns as file_namespace
+        api.add_namespace(file_namespace)
+
+    from src.api.server_info import ns as server_info_namespace
     api.add_namespace(server_info_namespace)
-
-
-init_api()

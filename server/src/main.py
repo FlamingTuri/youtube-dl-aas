@@ -1,8 +1,9 @@
-from src.config.flask_config import app
+from src.config.flask_config import app, init_api
 
 
-def start_flask_app():
+def start_flask_app(fs_storage: bool = True):
     print(" * App swagger will be available at: http://127.0.0.1:5000/swagger")
+    init_api(fs_storage)
     app.run(host="0.0.0.0", debug=False)
 
 
