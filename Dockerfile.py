@@ -44,4 +44,4 @@ RUN [ "node", ".github/script/create-artifacts.mjs", "docker-app", "main_web.py"
 
 WORKDIR /home/docker-user/server
 
-ENTRYPOINT [ "python3", "-m", "src.main_web", "${PORT}" ]
+ENTRYPOINT [ "python3", "-m", "src.main_web", "--port=${PORT}" ]
