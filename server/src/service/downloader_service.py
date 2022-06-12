@@ -2,10 +2,10 @@ import os
 import shutil
 import youtube_dl
 import zipfile
-from flask import safe_join
 from io import BytesIO
 from src.config.config import Config
 from src.models.file_info import FileInfo
+from werkzeug.utils import safe_join
 
 
 class DownloaderService:
@@ -33,7 +33,7 @@ class DownloaderService:
         in_memory_zip = BytesIO()
         with zipfile.ZipFile(in_memory_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
             for file in files:
-                # second param is necessary to avoid to zip the os directory structure
+                # second param is necessary to avoid zipping the os directory structure
                 zf.write(safe_join(download_folder, file), file)
         in_memory_zip.seek(0)
 

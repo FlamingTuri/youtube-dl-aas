@@ -19,11 +19,11 @@ jobs:
             appName: youtubeDlaas-macos.app
             artifactName: youtubeDlaas-macos.zip
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.3.0
         with:
           node-version: 'lts/*'
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       - run: >
@@ -31,7 +31,7 @@ jobs:
           ${{ matrix.appName }}
           main_qt.py
           requirements,requirements.gui,requirements.dev
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.appName }}
           path: server/dist/${{ matrix.appName }}
@@ -55,11 +55,11 @@ jobs:
             appName: youtubeDlaas-macos-headless.app
             artifactName: youtubeDlaas-macos-headless.zip
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.3.0
         with:
           node-version: 'lts/*'
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       - run: >
@@ -67,7 +67,7 @@ jobs:
           ${{ matrix.appName }}
           main.py
           requirements,requirements.dev
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.appName }}
           path: server/dist/${{ matrix.appName }}
