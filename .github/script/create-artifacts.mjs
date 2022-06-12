@@ -80,6 +80,13 @@ if (generateExecutable) {
     ].join(' ');
     console.log(`creating ${appName} executable in server/dist`);
     execSync(generateExecutableCmd);
+    if (appName.includes('linux')) {
+        const linuxDeploy = 'linuxdeployqt-continuous-x86_64.AppImage'
+        const linuxDeployUrl = `https://github.com/probonopd/linuxdeployqt/releases/download/continuous/${linuxDeploy}`;
+        execSync(`curl -o- ${linuxDeployUrl}`);
+        execSync(`chmod u+x ./${linuxDeploy}`);
+        execSync(`./${linuxDeploy} ./dist/${appName}`);
+    }
 } else {
     console.log('skipping executable creation via pyinstaller');
 }
