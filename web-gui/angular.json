@@ -20,6 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/home/",
             "outputPath": "dist/web-gui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -129,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "web-gui"
+  "defaultProject": "web-gui",
+  "cli": {
+    "analytics": false
+  }
 }
