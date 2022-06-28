@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialogUtils } from 'src/app/dialogs/mat-dialog-utils';
 
 @Component({ template: '' })
-export class AbstractMatDialog {
+export class AbstractMatDialogComponent {
 
   constructor(protected dialogRef: MatDialogRef<any>) {
   }
