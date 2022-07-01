@@ -1,13 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AbstractMatDialog } from 'src/app/dialogs/abstract-mat-dialog';
+import { AbstractMatDialogComponent } from 'src/app/dialogs/abstract-mat-dialog.component';
 
 @Component({
   selector: 'app-multiple-downloads-dialog',
   templateUrl: './multiple-downloads-dialog.component.html',
   styleUrls: ['./multiple-downloads-dialog.component.scss']
 })
-export class MultipleDownloadsDialogComponent extends AbstractMatDialog {
+export class MultipleDownloadsDialogComponent extends AbstractMatDialogComponent {
 
   urls: string[] = [''];
 

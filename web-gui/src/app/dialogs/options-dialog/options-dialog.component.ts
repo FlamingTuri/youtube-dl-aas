@@ -2,14 +2,14 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { DocService } from 'src/app/services/doc/doc.service';
-import { AbstractMatDialog } from 'src/app/dialogs/abstract-mat-dialog';
+import { AbstractMatDialogComponent } from 'src/app/dialogs/abstract-mat-dialog.component';
 
 @Component({
   selector: 'app-options-dialog',
   templateUrl: './options-dialog.component.html',
   styleUrls: ['./options-dialog.component.scss']
 })
-export class OptionsDialogComponent extends AbstractMatDialog {
+export class OptionsDialogComponent extends AbstractMatDialogComponent {
 
   youtubeDlOptions: string;
   youtubeDlDoc: string = '';

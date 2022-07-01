@@ -1,0 +1,27 @@
+name: build-and-lint
+on: [push, pull_request]
+
+jobs:
+  lint-python-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - run: |
+          cd server
+          python -m pip install -r requirements.dev.txt
+          flake8 src
+  lint-node-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.3.0
+        with:
+          node-version: 'lts/*'
+      - run: |
+          cd web-gui
+          npm install
+          npm run build
+          npm run lint
